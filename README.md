@@ -1,3 +1,6 @@
 # CollinEB.github.io
-Website
-This will be the location of my personal website.
+https://collineb.github.io/
+
+Welcome
+Please use the map below to explore my education and work experience.
+<iframe src="http://CollinEB.github.io/ResMap/" width="800" height="440"> </iframe>
