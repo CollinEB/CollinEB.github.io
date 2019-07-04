@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>Andrea Minano - Geomatics Specialist</title>
+		<link rel="shortcut icon" href="img/icon.ico">
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		
+		<link type="text/css" rel="stylesheet" href="mmenu/dist/css/jquery.mmenu.all.css" />
+		<link rel="image_src" href="img/preview.png" />
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="mmenu/dist/js/jquery.mmenu.min.all.js"></script>
+		
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+		
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="awesome-markers/dist/leaflet.awesome-markers.css">
+		<script src="awesome-markers/dist/leaflet.awesome-markers.js"></script>
+	
+		<link rel="stylesheet" href="marker-cluster/MarkerCluster.css" />
+		<link rel="stylesheet" href="marker-cluster/MarkerCluster.Default.css" />
+		<script src="marker-cluster/leaflet.markercluster-src.js"></script>
+		
+        <script type="text/javascript" src="tile.stamen.js?v1.3.0"></script>
+		
+		<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu();
+			});
+		</script>
+		
+		<script type="text/javascript">
+            function initialize() {
+			
+			  var redMarker = L.AwesomeMarkers.icon({markerColor: 'red'});
+			  var orangeMarker = L.AwesomeMarkers.icon({markerColor: 'orange'});
+			  var blueMarker = L.AwesomeMarkers.icon({markerColor: 'darkblue'});
+			  
+			  var markers = L.markerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 40});
+  
+                var layers = ["toner", "watercolor"];
+                for (var i = 0; i < layers.length; i++) {
+                    var layer = layers[i];
+                    var map = new L.Map(layer, {
+                        center: new L.LatLng(50.037833, -89.144531),
+                        zoom: 4,
+						attributionControl: false
+                    });
+                    map.addLayer(new L.StamenTileLayer(layer, {
+                        detectRetina: true,
+                    }));
+					
+					//places
+					//L.marker([-12.102397, -76.973707], {icon: redMarker}).bindPopup("Where I was born").addTo(map);
+					//L.marker([43.653987, -79.382112], {icon: redMarker}).bindPopup("Where I currently live").addTo(map);
+
+					//jobs
+					markers.addLayer(L.marker([43.660739, -79.384861], {icon: redMarker}).bindPopup("<b>Insurance Bureau of Canada</b><br>GIS Specialist"));
+					markers.addLayer(L.marker([43.671294, -79.383052], {icon: redMarker}).bindPopup("<b>Ministry of Indigenous Relations and Reconciliation</b><br>GIS Assistant"));
+					markers.addLayer(L.marker([43.471708, -80.542809], {icon: redMarker}).bindPopup("<b>University of Waterloo</b><br>Research Associate, Geomatics Research and Teaching Assistant"));
+					markers.addLayer(L.marker([45.430561, -75.696315], {icon: redMarker}).bindPopup("<b>Canadian Ice Service</b><br>Image Lab Research Assistant, Geospatial Data Technician"));
+					markers.addLayer(L.marker([45.392613, -75.717086], {icon: redMarker}).bindPopup("<b>Agriculture and Agri-Food Canada</b><br>Geomatics Technician"));
+					markers.addLayer(L.marker([46.488090, -80.992375], {icon: redMarker}).bindPopup("<b>City of Greater Sudbury</b><br>GIS Project Assistant"));
+					
+					//conferences
+					markers.addLayer(L.marker([41.888127, -87.622816], {icon: blueMarker}).bindPopup("<b>American Association of Geographers</b>"));
+					markers.addLayer(L.marker([43.690934, -79.578133], {icon: blueMarker}).bindPopup("<b>Esri User Conference</b>"));
+					markers.addLayer(L.marker([44.648436, -63.576091], {icon: blueMarker}).bindPopup("<b>Coastal Zone Canada</b>"));
+					markers.addLayer(L.marker([51.177197, -115.574124], {icon: blueMarker}).bindPopup("<b>Spatial Knowledge and Information</b>"));
+				
+					//school
+					markers.addLayer(L.marker([43.468088, -80.543471], {icon: orangeMarker}).bindPopup("<b>University of Waterloo</b><br>MSc in Geography, Geomatics specialization<br>BES in Geomatics"));
+					
+					map.addLayer(markers);
+					
+					var legend = L.control({position: 'bottomright'});
+
+					legend.onAdd = function (map) {
+					var div = L.DomUtil.create('div', 'legend');
+						div.innerHTML +=
+						'<img src="img/red-marker.png" height="20px">Work experience<br><img src="img/yellow-marker.png" height="20px">Education<br><img src="img/blue-marker.png" height="20px">Conference presentations';
+					return div;
+					};
+				
+				L.control.attribution({prefix: 'Map markers &copy; <a href="https://github.com/lvoogdt/Leaflet.awesome-markers" target="_blank">Awesome Markers</a>'}).addTo(map);
+				legend.addTo(map);
+					
+					
+                }
+
+            }
+        </script>
+		
+		
+		<style>
+		#name{
+		position: absolute;
+		top: 30%;
+		width: 100%;
+		height: 150px;
+		font-size: 80px;
+		text-align: center;
+		color: #ffffff;
+		font-weight: 900;
+		letter-spacing: 6px;
+
+		}
+		</style>
+	</head>
+	<body onload="initialize()">
+		<div id="page" style="height: 100%;">
+			<!--<div class="header">
+				<a href="#menu"></a>
+				
+			</div>-->
+			
+		
+			<div id="toner" class ="map">
+		</div>
+	<div class='desc'>
+	<div class='desc-content'>
+		<h1>Hello! <p style="color: #588C7E;">I'm Andrea. </p></h1>
+		<h2>I’m a spatial thinker, analyst, developer and researcher based in Waterloo, Ontario, Canada.</h2>
+		
+		My work focuses on the intersection of <b>geography</b>, <b>technology</b> and <b>policy</b>. 
+		
+		<br><br>I’m currently working at the University of Waterloo identifying new ways and strategies to manage Canadians’ risks to natural disasters. I’m interested in using technology to help people understand problems and prioritize action where it is most needed. I hope my work helps communities and individuals become more resilient to extreme weather events. 
+		<br><br>You can check out an interactive map I made for a UNFCCC-initiated event on climate and energy <a href="http://52.10.138.37/wwviews/" target="_blank">here</a>, a visualization tool I developed that shows climate change impacts in small rural communities <a href="http://adaptns.ca/" target="_blank">here</a>, and a peer-reviewed policy brief I co-wrote on sustainable insurance and climate change <a href="https://www.cigionline.org/publications/managing-climate-change-risk-coastal-canadian-communities-through-sustainable" target="_blank">here</a>. Or check out my resume on a map <img src='img/arrow-right-c.png' height='18px' width='18px'>
+		<br><br>Some of my other loves/hobbies include painting, reading about the digital age and hypothetical futures, and volunteering (as much as I can!).
+		<br><br>Tweet me <img src='img/twitter.png' style='background-color: #8C4646;'> <a href="https://twitter.com/Andrea_Minano" target="_blank">@Andrea_Minano</a> or connect with me on <img src='img/linkedin.png' style='background-color: #8C4646;'> <a href="https://ca.linkedin.com/in/andrea-minano" target="_blank">LinkedIn</a>.
+		<!--<h1><p style="color: #588C7E;">Contact me</p></h1>
+	<br><img src='img/twitter.png' style='background-color: #8C4646;'> <a href="https://twitter.com/Andrea_Minano" target="_blank">@Andrea_Minano</a>
+	<br><img src='img/linkedin.png' style='background-color: #8C4646;'> <a href="https://ca.linkedin.com/pub/andrea-minano/51/635/914" target="_blank">Let's connect</a> (or contact me for CV)
+	<br><img src='img/email.png' style='background-color: #8C4646;'> <b>andrea[dot]minano[at]gmail[dot]com</b>
+	<br><img src='img/github-2.png' style='background-color: #8C4646;'> <a href="https://github.com/AndreaMinano" target="_blank">Let's collaborate</a> (though I'm the new kid on the block)-->
+	 </div>
+	 </div>
+			
+			<!--<nav id="menu">
+				<ul>
+					<li><a href="index.html">About</a></li>
+					
+					<li><a href="portfolio.html">Portfolio</a>
+					</li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>-->
+		</div>
+	</body>
+</html>
